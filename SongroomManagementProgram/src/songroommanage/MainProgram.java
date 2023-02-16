@@ -6,6 +6,7 @@ import javax.swing.*;
 public class MainProgram {
 	public static void main(String[] args) {
 		System.out.println("program start!");
+		foodmanagement jFrame = new foodmanagement();
 		try {
 			 Class.forName("com.mysql.cj.jdbc.Driver");
 			 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/songroomdb","root","alice0628!!"); 
@@ -13,7 +14,6 @@ public class MainProgram {
 			 Statement stmt = conn.createStatement();
 			 SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						foodmanagement jFrame = new foodmanagement();
 						jFrame.setVisible(true);
 					}
 				});

@@ -15,12 +15,26 @@ public class foodmanagement extends JFrame {
 	private GridLayout GLO;
 	private String colNames[]= {"ID","이름","가격","정보"};
 	private DefaultTableModel model = new DefaultTableModel(colNames,0);
+	private JButton btnrefresh;
 	public foodmanagement() {
 		this.setTitle("음식물 관리");
 		this.setSize(565,576);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(new JScrollPane(foodlist()),BorderLayout.WEST);
 		this.getContentPane().add(getfoodmanagepanel(),BorderLayout.EAST);
+	}
+	private JButton getbtnrefresh()
+	{
+		if(btnrefresh==null) {
+			btnrefresh=new JButton();
+			btnrefresh.setText("새로고침");
+			btnrefresh.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					foodmanagepanel.repaint();
+				}
+			});
+		}
+		return btnrefresh;
 	}
 	public JPanel getfoodmanagepanel() {
 		if(foodmanagepanel==null) {
@@ -30,6 +44,7 @@ public class foodmanagement extends JFrame {
 			foodmanagepanel.add(foodaddbtn());
 			foodmanagepanel.add(foodmodifybtn());
 			foodmanagepanel.add(fooddeletebtn());
+			foodmanagepanel.add(getbtnrefresh());
 		}
 		return foodmanagepanel;
 	}
@@ -76,7 +91,7 @@ public class foodmanagement extends JFrame {
 	{
 		if(GLO == null)
 		{
-			GLO = new GridLayout(3,1);
+			GLO = new GridLayout(4,1);
 		}
 		return GLO;
 	}
@@ -194,6 +209,7 @@ public class foodmanagement extends JFrame {
 							 System.out.println("JDBC 드라이버 로드 에러");
 							 } catch (SQLException e1) {
 							 System.out.println("DB 연결 에러");
+							 foodcount+=10;
 							 }
 					}
 				});
